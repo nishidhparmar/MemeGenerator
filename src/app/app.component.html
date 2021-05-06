@@ -13,8 +13,13 @@
     <button class="btn btn-success mt-3" [disabled]="text0.invalid || text1.invalid" type="submit"
       [style.display]="start?'':'none'">{{loading}}</button>
   </form>
+
   <div class="btns mt-3">
-    <button (click)="next()" [style.display]="start?'':'none'" class="btn btn-primary">Next</button>
+    <button (click)="prev()" [disabled]="preverr" [style.display]="start?'':'none'" class="btn btn-danger">Prev</button>
+
+    <button (click)="next()" [disabled]="nexterr" [style.display]="start?'':'none'"
+      class="btn btn-primary ms-2">Next</button>
+
     <button (click)="next()" [style.display]="start?'none':''" class="btn btn-success">Start</button>
     <a href="{{urlobj.data.url}}" [style.display]="url?'':'none'" target="_blank" class="btn btn-dark ms-2">OpenUrl</a>
   </div>

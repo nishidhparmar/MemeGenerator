@@ -11,13 +11,15 @@ export class AppComponent implements OnInit {
   constructor(private api: ApiService) {}
   data: any = [];
   memesdata: any = [];
-  i: any = 0;
+  i: any = -1;
   memes: any = [];
   memesarray: any = [];
   start: boolean;
   url: boolean = false;
   urlobj: any = [];
   loading = 'Generate';
+  preverr: boolean;
+  nexterr: boolean;
   ngOnInit(): void {
     this.api.getdata().subscribe((data) => {
       this.data = data;
@@ -31,13 +33,25 @@ export class AppComponent implements OnInit {
   }
 
   next() {
-    if (this.memes.length !== this.i) {
-      this.memesarray = this.memes[this.i];
+    if (this.memes.length - 1 == this.i) {
+      this.nexterr = true;
+    } else {
       this.i++;
+      this.memesarray = this.memes[this.i];
       this.start = true;
       this.url = false;
+      this.preverr = false;
+    }
+  }
+  prev() {
+    if (this.i == 0) {
+      this.preverr = true;
     } else {
-      console.log('finish');
+      this.i--;
+      this.memesarray = this.memes[this.i];
+      this.start = true;
+      this.url = false;
+      this.nexterr = false;
     }
   }
   submit(id, meme: NgForm) {
